@@ -1,15 +1,15 @@
 plugins {
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
-    id 'org.springframework.boot' version '3.4.3'
-    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.example'
 version = '1.0.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_23
-    targetCompatibility = JavaVersion.VERSION_23
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -17,27 +17,34 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.springframework:spring-tx'
     implementation 'org.hibernate.validator:hibernate-validator:6.0.13.Final'
     implementation 'org.glassfish:javax.el:3.0.0'
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
-tasks.withType(Test).configureEach {
-    useJUnitPlatform()
+test {
+    useJUnitPlatform() // Ensure this is included to use JUnit 5
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.example.Main'
+        attributes 'Main-Class': 'com.dws.challenge.ChallengeApplication'
     }
 }
 
 tasks.register('run', JavaExec) {
-    mainClass = 'com.example.Main'
+    mainClass = 'com.dws.challenge.ChallengeApplication'
     classpath = sourceSets.main.runtimeClasspath
 }

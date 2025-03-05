@@ -31,4 +31,16 @@ public class Account {
     this.accountId = accountId;
     this.balance = balance;
   }
+
+  public synchronized boolean withdraw(BigDecimal amount) {
+    if (this.balance.compareTo(amount) >= 0) {
+      this.balance = this.balance.subtract(amount);
+      return true;
+    }
+    return false;
+  }
+
+  public synchronized void deposit(BigDecimal amount) {
+    this.balance = this.balance.add(amount);
+  }
 }

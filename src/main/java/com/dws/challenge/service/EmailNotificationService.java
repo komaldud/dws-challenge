@@ -2,7 +2,11 @@ package com.dws.challenge.service;
 
 import com.dws.challenge.domain.Account;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
+@Qualifier("emailNotificationService")
 @Slf4j
 public class EmailNotificationService implements NotificationService {
 
